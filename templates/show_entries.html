@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+	{% if session.logged_in %}
+	<form action="{{ url_for('add_entry') }}" method='POST' class="add-entry">
+		<dl>
+			<dt>标题:</dt>
+			<dd>
+				<input type="text" name="title">
+			</dd>
+			<dt>内容:</dt>
+			<textarea name="text" rows="5" cols="40"></textarea>
+			<dt>
+				<input type="submit" value="分享">
+			</dt>
+		</dl>
+
+	</form>
+	{% endif %}
+
+	<ul class="entries"	>
+		{% for entry in entries %}
+			<li>
+				<h2>{{ entry.title }}</h2>
+				{{ entry.text|safe }}
+			</li>
+		{% else %}
+			<li><em>不可思议,居然没有发表任何动态~~</em></li>
+		{% endfor %}
+	</ul>
+{% endblock %}
